@@ -33,17 +33,34 @@ class OwnCardsContainer extends React.Component<Props, State>{
   }
 
   render() {
-let props = {beanId:"ss"}
+    let props = {beanId:"ss"}
     return (
-      <div className="ss">
-        <Card opacity={1} {...props}/>
+      <div id="ownCardsContainer" className="row" >
    
-        <Card opacity={1} {...props}/>
-        <Card opacity={0} {...props}/>
-        <Card opacity={1}{...props}/>
-        <Card  opacity={0} {...props}/>
-        <Card opacity={1} {...props}/>
-      </div>
+        <div className="col-sm"  > 
+          <Card opacity={1}{...props}/>
+        </div>
+      
+        <div className="col-sm" > 
+          <Card opacity={1}{...props}/>
+        </div>
+
+        <div className="col-sm" > 
+          <Card opacity={0}{...props}/>
+        </div>
+
+        <div className="col-sm" > 
+         <Card opacity={1}{...props}/>
+        </div>
+
+        <div className="col-sm" > 
+          <Card opacity={1}{...props}/>
+        </div>
+
+        <div className="col-sm"  > 
+          <Card opacity={1}{...props}/>
+        </div>
+        </div> 
     );
   }
 }

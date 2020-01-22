@@ -48,12 +48,12 @@ class Deck extends React.Component<Props, State>{
 
     return (
       <div id="dd2" className="float-bottom text-center">
-        <nav>
+        
 
           <AllCardsContainer beanId="all"/>
-          
+          <OwnCardsContainer beanId="own"/>  
 
-        </nav>
+     
       </div>
     );
   }

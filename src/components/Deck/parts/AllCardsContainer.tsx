@@ -27,12 +27,9 @@ class AllCardsContainer extends React.Component<Props, State>{
     this.setState(obj);
   }
 
-
   doVote = (cardId: string) => {
     console.log("vote for this card")
   }
-
-
 
   render() {
 
@@ -43,14 +40,11 @@ class AllCardsContainer extends React.Component<Props, State>{
 
     const CardToken = (args: {cardProps: CardProps}) => {
       return (
-      <div className="row"  style={{ marginRight: 0, marginTop: 10,  }}> 
-       <div className="col-sm"  > 
+      <div className="rowd"  > 
 
-          <Card {...args.cardProps}/>
+          <Card {...args.cardProps}/> 
           <Token {...args.cardProps}/>
 
-      
-        </div>
       </div>
       );
     } 
@@ -59,31 +53,26 @@ class AllCardsContainer extends React.Component<Props, State>{
         <div className="col-sm"  > 
         <CardToken {...props}/>
        
-        <CardToken {...props}/>
         </div>
         <div className="col-sm"  > 
         <CardToken {...props}/>
+     
+        </div>
+        <div className="col-sm"  > 
+       
        
         <CardToken {...props}/>
         </div>
-        <div className="col-sm"  > 
-        <CardToken {...props}/>
-       
-        <CardToken {...props}/>
-        </div>
 
         <div className="col-sm"  > 
-        <CardToken {...props}/>
+        
         <CardToken {...props}/>
         </div>
-
         <div className="col-sm"  > 
-          <CardToken {...props}/>
           <CardToken {...props}/>
         </div>
 
         <div className="col-sm"  > 
-          <CardToken {...props}/>
           <CardToken {...props}/>
         </div>
       </div>
