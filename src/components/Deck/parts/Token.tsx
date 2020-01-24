@@ -1,7 +1,4 @@
 import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
-
-import { RouteComponentProps } from 'react-router';
 
 export type TokenProps = { beanId: string, opacity: number };
 
@@ -14,19 +11,6 @@ class Token extends React.Component<TokenProps>{
     };
     this.opacity = props.opacity;
   }
-
-//   .item {   
-//     height:200px;
-//     width:200px;
-//     background:red;
-//     -webkit-transition: opacity 1s ease-in-out;
-    
-// }
-
-// .item:hover {
-//     opacity: 0;
-// }
-
 
   changeState = (obj: any) => {
     this.setState(obj);

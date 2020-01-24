@@ -1,16 +1,17 @@
 import React from 'react';
+import WebSocketService from './services/WebSocketService';
 import Home from './components/Home';
 import Header from './components/Header';
 import Deck from './components/Deck/Deck';
 //import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-//import './App.css';
+import './App.css';
 document.body.classList.add('bg-success');
 //document.body.stdyle = {'background': 'red;'};
 const stylesObj = {
   background: "green"
 };
-
+WebSocketService.connect()
   let style = {
     stylesObj
   }

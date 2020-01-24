@@ -12,28 +12,26 @@ type State = {
 };
 
 class OwnCardsContainer extends React.Component<Props, State>{
-//     initialTitle: string;
-//   constructor(props: Props) {
-//     super(props);
-//     this.state = {
-//       beanId: props.beanId,
-//       isVisible: true 
-
-//     };
-//     this.initialTitle = document.title;
-//   }
 
   changeState = (obj: any) => {
     this.setState(obj);
   }
 
 
-  startFlashTabTitle = () => {
+  clickOnCard = (cardOnclickFunc: Function) => {
+    let res = cardOnclickFunc();
+    console.log(res);
+    
+  }
 
+  clickOn = () => {
+ 
+    console.log();
+    
   }
 
   render() {
-    let props = {beanId:"ss"}
+    let props = {beanId:"ss", onClickFunc : this.clickOnCard}
     return (
       <div id="ownCardsContainer" className="row" >
    
@@ -60,7 +58,7 @@ class OwnCardsContainer extends React.Component<Props, State>{
         <div className="col-sm"  > 
           <Card opacity={1}{...props}/>
         </div>
-        </div> 
+      </div> 
     );
   }
 }

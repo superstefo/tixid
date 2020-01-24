@@ -13,7 +13,7 @@ type State = {
     beanId: string,
     isVisible: boolean 
 };
-class Header extends React.Component<Props, State>{
+class Header extends React. Component<Props, State>{
   initialTitle: string;
   constructor(props: Props) {
     super(props);

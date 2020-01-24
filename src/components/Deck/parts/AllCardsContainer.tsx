@@ -35,7 +35,8 @@ class AllCardsContainer extends React.Component<Props, State>{
 
     let props = {cardProps : {
       beanId: "string",
-      opacity: 1
+      opacity: 1,
+      onClickFunc : ()=>{}
     }}
 
     const CardToken = (args: {cardProps: CardProps}) => {
@@ -47,27 +48,14 @@ class AllCardsContainer extends React.Component<Props, State>{
 
       </div>
       );
-    } 
+    }
+
     return (
       <div id="allCardsContainer" className="row">
         <div className="col-sm"  > 
-        <CardToken {...props}/>
-       
-        </div>
-        <div className="col-sm"  > 
-        <CardToken {...props}/>
-     
-        </div>
-        <div className="col-sm"  > 
-       
-       
-        <CardToken {...props}/>
+          <CardToken {...props}/>
         </div>
 
-        <div className="col-sm"  > 
-        
-        <CardToken {...props}/>
-        </div>
         <div className="col-sm"  > 
           <CardToken {...props}/>
         </div>
@@ -75,6 +63,19 @@ class AllCardsContainer extends React.Component<Props, State>{
         <div className="col-sm"  > 
           <CardToken {...props}/>
         </div>
+
+        <div className="col-sm"  > 
+          <CardToken {...props}/>
+        </div>
+
+        <div className="col-sm"  > 
+          <CardToken {...props}/>
+        </div>
+
+        <div className="col-sm"  > 
+          <CardToken {...props}/>
+        </div>
+
       </div>
     );
   }
