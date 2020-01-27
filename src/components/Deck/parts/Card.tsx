@@ -1,14 +1,21 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
-
+import AjaxService from "../../../services/AjaxService";
 import { RouteComponentProps } from 'react-router';
+import WebSocketService from '../../../services/WebSocketService';
+import { log } from "util";
 
-export type CardProps = { beanId: string, opacity: number, onClickFunc: Function };
+
 
 interface ICardState {
   opacity: number,
-  beanId: string
+  cardId: string,
+  faceImgSrc: string,
+  isFaceShown: boolean
 }
+
+export type CardProps = { 
+} & ICardState
 
 class Card extends React.Component<CardProps, ICardState>{
   onClickFunc: any;
@@ -16,46 +23,50 @@ class Card extends React.Component<CardProps, ICardState>{
   constructor(props: CardProps) {
     super(props);
     this.state = {
-      beanId: props.beanId,
-      opacity: props.opacity
+    
+      opacity: props.opacity,
+      isFaceShown: props.isFaceShown,
+  
+      cardId: "card-001",
+      faceImgSrc: "https://external-preview.redd.it/kD8uW-DXNIO55TnlWDtT8bqk1g6awTVbqF3MCTjCDTI.jpg?auto=webp&s=73dbc0703474e0b3b0300b1980b35d4538522c9c"
     };
-    this.onClickFunc = props.onClickFunc;
+    
+
   }
 
-//   .item {   
-//     height:200px;
-//     width:200px;
-//     background:red;
-//     -webkit-transition: opacity 1s ease-in-out;
-    
-// }
 
-// .item:hover {
-//     opacity: 0;
-// }
-
+  componentDidMount() {///0886625452
+    //  WebSocketService.subscribe('/topic/card-on-deck/"+ gameId', this.wrapper);
+  }
 
   changeState = (obj: any) => {
     this.setState(obj);
   }
 
   onClick = () => {
-    this.setState({opacity : 0});
-    //this.onClickFunc()
+
+    let gameId = "game-001"//this.state.gameId;
+    let cardId = this.state.cardId;
+    AjaxService.doPost("http://localhost:8585/card-on-deck/" + gameId + "/" + cardId, {}, {});
     return "stefko"
   }
 
-  wrapper = () => {
-    //this.setState({opacity : 0});
-    this.onClickFunc(this.onClick)
+  setInvisible = () => {
+    this.setState({ opacity: 0 });
   }
 
+  setImgSource = (faceImgSrc: string) => {
+    this.setState({ faceImgSrc: faceImgSrc });
+  }
+
+  ///https://upload.wikimedia.org/wikipedia/commons/6/6a/India_tiger.jpg
   render() {
     let cssClasses = 'opac float-left img-fluid rounded';
     return (
-        <div id="dd2" className="opac float-botftom contaidner-fluid">
-          <img onClick={this.wrapper } alt="some image" style={{ marginRight: 0,  marginTop: 0, opacity: this.state.opacity }}  className={cssClasses} src="https://external-preview.redd.it/kD8uW-DXNIO55TnlWDtT8bqk1g6awTVbqF3MCTjCDTI.jpg?auto=webp&s=73dbc0703474e0b3b0300b1980b35d4538522c9c" />
-        </div>
+      <div id="dd2" className="opac float-botftom contaidner-fluid">
+        <img onClick={this.onClick} alt="some image" style={{ opacity: this.state.opacity }} className={cssClasses} 
+          src={this.state.faceImgSrc}/>
+      </div>
     );
   }
 }
