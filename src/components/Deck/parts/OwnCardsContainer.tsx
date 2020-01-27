@@ -49,7 +49,18 @@ class OwnCardsContainer extends React.Component<Props, State>{
     card?.setInvisible()
 
     let AllCardsRefs = ContextBeanAware.get("AllCardsContainer1")?.Refs;
+    console.log(AllCardsRefs);
     
+    for (let index = 0; index < AllCardsRefs?.length; index++) {
+      const element = AllCardsRefs[index] as Card;
+      if (element?.state?.opacity === 0) {
+        console.log("----------- break ");
+        
+        element.turnFaceUp()
+        break
+      }
+      
+    }
     //this.setState({ opacity: 0 });
     // this.onClickFunc(this.onClick)"
   }
@@ -71,12 +82,24 @@ class OwnCardsContainer extends React.Component<Props, State>{
   }
 
   render() {
-    let props = { beanId: "ss", onClickFunc: this.clickOnCard }
+   // let props = { beanId: "ss", onClickFunc: this.clickOnCard }
+    let props = {
+      
+        beanId: "string",
+        //opacity: 1,
+       
+        cardId: "",
+        imgShown: "string",
+     //   backImgSrc: "",
+        isFaceShown: true
+      
+     
+    }
     return (
       <div id="ownCardsContainer" className="row" >
 
         <div className="col-sm"  >
-          <Card opacity={1} {...props} ref={(input) => {this.Refs[0] = input }} />
+          <Card opacity={1}  {...props} ref={(input) => {this.Refs[0] = input }} />
         </div>
 
         <div className="col-sm" >

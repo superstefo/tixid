@@ -11,7 +11,7 @@ type State = {
   beanId: string,
   isVisible: boolean,
   gameId: string,
-//  cardId: string
+  //  cardId: string
 };
 
 let arg: Props;
@@ -22,9 +22,9 @@ class AllCardsContainer extends React.Component<Props, State>{
     this.state = {
       beanId: "AllCardsContainer1",
       isVisible: true,
-   
+
       gameId: "game-001",
-     // cardId: "card-002"
+      // cardId: "card-002"
     };
     //  this.onClickFunc = props.onClickFunc;
     this.Refs = [];
@@ -40,56 +40,57 @@ class AllCardsContainer extends React.Component<Props, State>{
 
   componentDidMount() {///0886625452
     ContextBeanAware.add(this)
-   // WebSocketService.subscribe('/topic/card-on-deck/'+ this.state.gameId, this.callBack);
+    // WebSocketService.subscribe('/topic/card-on-deck/'+ this.state.gameId, this.callBack);
   }
-  
+
   render() {
 
+    // let props4 = {
+    //   cardProps: {//
+    //     beanId: "string",
+    //    // opacity: 1,
+
+    //     cardId: "",
+    //     faceImgSrc: "string",
+    //     isFaceShown: true
+    //   }
+    // }
+
+    // const CardToken = (args: { cardProps: CardProps, id: number }) => {//  <Token {...args.cardProps} />
+    //   return (
+    //     <div className="rowd"  >
+
+    //       <Card ref={(input) => { this.Refs[args.id] = input }} {...args.cardProps} />
+
+
+    //     </div>
+    //   );
+    // }
     let props = {
-      cardProps: {
-        beanId: "string",
-        opacity: 1,
-        onClickFunc: () => { }
-      }
+      beanId: "string",
+      //opacity: 1,
+      cardId: "",
+      imgShown: "string",
+      //  backImgSrc: "",
+      isFaceShown: true
     }
 
-    const CardToken = (args: { cardProps: CardProps, id: number }) => {//  <Token {...args.cardProps} />
-      return (
-        <div className="rowd"  >
+    var indents = [];
+    for (var i = 0; i < 6; i++) {
 
-          <Card ref={(input) => { this.Refs[args.id] = input }} {...args.cardProps} />
-        
+      indents.push(((i: number) => {
+        return (<div key={i} className="col-sm"  >
+          <Card opacity={0}  {...props} ref={(input) => { this.Refs[i] = input }} />
+        </div>)
+      })(i)
 
-        </div>
       );
     }
 
+
     return (
       <div id="allCardsContainer" className="row">
-        <div className="col-sm"  >
-          <CardToken id={0} {...props} />
-        </div>
-
-        <div className="col-sm"  >
-          <CardToken id={1} {...props} />
-        </div>
-
-        <div className="col-sm"  >
-          <CardToken id={2} {...props} />
-        </div>
-
-        <div className="col-sm"  >
-          <CardToken id={3} {...props} />
-        </div>
-
-        <div className="col-sm"  >
-          <CardToken id={4} {...props} />
-        </div>
-
-        <div className="col-sm"  >
-          <CardToken id={5} {...props} />
-        </div>
-
+        {indents}
       </div>
     );
   }
