@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import OwnCardsContainer from "./parts/OwnCardsContainer";
-import AllCardsContainer from "./parts/AllCardsContainer";
+import PlayedCardsContainer from "./parts/PlayedCardsContainer";
 import { RouteComponentProps } from 'react-router';
 
 type Props = { beanId: string, history: any } & RouteComponentProps<{}>;
@@ -34,7 +34,7 @@ class Deck extends React.Component<Props, State>{
     return (
       <div id="dd2" className="float-bottom text-center">
 
-        <AllCardsContainer beanId="all" />
+        <PlayedCardsContainer beanId="all" />
         <OwnCardsContainer beanId="own" />
       </div>
     );

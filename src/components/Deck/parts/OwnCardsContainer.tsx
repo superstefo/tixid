@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import Card from "./Card";
+import OwnCard from "./OwnCard";
+import PlayedCard from "./PlayedCard";
 import Separator from "./Separator";
 import { RouteComponentProps } from 'react-router';
 import WebSocketService from '../../../services/WebSocketService';
@@ -10,9 +11,9 @@ type Props = { beanId: string, history: any } & RouteComponentProps<{}>;
 
 type State = {
   beanId: string,
- // isVisible: boolean,
+  // isVisible: boolean,
   gameId: string
-//  cardId: string
+  //  cardId: string
 };
 
 let arg: Props;
@@ -22,58 +23,52 @@ class OwnCardsContainer extends React.Component<Props, State>{
 
   constructor(props: {}) {
     super(arg);
-    
+
     this.state = {
       beanId: "OwnCardsContainer1",
-    //  opacity: props.opacity,
+      //  opacity: props.opacity,
       gameId: "game-001",
-    //  cardId: "card-002"
+      //  cardId: "card-002"
     };
-  //  this.onClickFunc = props.onClickFunc;
-  this.Refs = [];
+    //  this.onClickFunc = props.onClickFunc;
+    this.Refs = [];
   }
 
-  componentDidMount() {///0886625452
+  componentDidMount() {
     ContextBeanAware.add(this)
-    WebSocketService.subscribe('/topic/card-on-deck/'+ this.state.gameId, this.callBack);
+    WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);
   }
 
   callBack = (messageOutput: any) => {
-    
-    console.log(messageOutput);
+  //  console.log(messageOutput);
     let res = messageOutput?.body
     res = JSON.parse(res);
-    console.log(res);
-    let card = this.getCard(res?.cardId, this.Refs)//this.Refs[0];
-    console.log(card);
-    card?.setInvisible()
+   // let card = this.getCard(res?.cardId, this.Refs);//this.Refs[0];
+  //  console.log(card);
+  //  card?.setInvisible();
 
-    let AllCardsRefs = ContextBeanAware.get("AllCardsContainer1")?.Refs;
-    console.log(AllCardsRefs);
-    
+    let AllCardsRefs = ContextBeanAware.get("PlayedCardsContainer1")?.Refs;
+   // console.log(AllCardsRefs);
+
     for (let index = 0; index < AllCardsRefs?.length; index++) {
-      const element = AllCardsRefs[index] as Card;
+      const element = AllCardsRefs[index] as PlayedCard;
       if (element?.state?.opacity === 0) {
-        console.log("----------- break ");
-        
-        element.turnFaceUp()
+      //  console.log("----------- break ");
+        element.placeCardOnDeck()
         break
       }
-      
     }
-    //this.setState({ opacity: 0 });
-    // this.onClickFunc(this.onClick)"
   }
 
-  getCard = (id: string, refs: Array<any>) => {
-
+  //Get
+  getCard = (id: string, refs: Array<any>) : OwnCard | null => {
     for (let index = 0; index < refs.length; index++) {
       let card = refs[index];
       if (card?.state?.cardId === id) {
         return card
       }
     }
-   return null;
+    return null;
   }
 
   clickOnCard = (cardOnclickFunc: Function) => {
@@ -82,44 +77,39 @@ class OwnCardsContainer extends React.Component<Props, State>{
   }
 
   render() {
-   // let props = { beanId: "ss", onClickFunc: this.clickOnCard }
     let props = {
-      
-        beanId: "string",
-        //opacity: 1,
-       
-        cardId: "",
-        imgShown: "string",
-     //   backImgSrc: "",
-        isFaceShown: true
-      
-     
+      beanId: "string",
+      //opacity: 1,
+      cardId: "",
+      imgShown: "string",
+      isFaceShown: true
     }
+
     return (
       <div id="ownCardsContainer" className="row" >
 
         <div className="col-sm"  >
-          <Card opacity={1}  {...props} ref={(input) => {this.Refs[0] = input }} />
+          <OwnCard opacity={1}  {...props} ref={(input) => { this.Refs[0] = input }} />
         </div>
 
         <div className="col-sm" >
-          <Card opacity={1} {...props} ref={(input) => {this.Refs[1] = input }} />
+          <OwnCard opacity={1} {...props} ref={(input) => { this.Refs[1] = input }} />
         </div>
 
         <div className="col-sm" >
-          <Card opacity={1}  {...props} ref={(input) => {this.Refs[2] = input }} />
+          <OwnCard opacity={1}  {...props} ref={(input) => { this.Refs[2] = input }} />
         </div>
 
         <div className="col-sm" >
-          <Card opacity={1}{...props} ref={(input) => {this.Refs[3] = input }} />
+          <OwnCard opacity={1}{...props} ref={(input) => { this.Refs[3] = input }} />
         </div>
 
         <div className="col-sm" >
-          <Card opacity={1}{...props} ref={(input) => {this.Refs[4] = input }} />
+          <OwnCard opacity={1}{...props} ref={(input) => { this.Refs[4] = input }} />
         </div>
 
         <div className="col-sm"  >
-          <Card opacity={1}{...props} ref={(input) => {this.Refs[5] = input }} />
+          <OwnCard opacity={1}{...props} ref={(input) => { this.Refs[5] = input }} />
         </div>
       </div>
     );
