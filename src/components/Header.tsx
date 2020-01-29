@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
-//import BeanContextAware from '../services/BeanContextAware';
+import ContextBeanAware from '../services/ContextBeanAware';
 //import CashService from '../services/CashService';
 //import Const from '../services/Constants'
 //import MatchDecoratorService from '../services/MatchDecoratorService';
@@ -56,12 +56,9 @@ class Header extends React. Component<Props, State>{
   }
 
 
-//   goChat = (match) => {
-//     this.props.history.push({
-//       pathname: '/chat',
-//       state: { data: match }
-//     })
-//   }
+  shuffle = () => {
+    ContextBeanAware.get
+  }
 
   render() {
     let Btn = (props: any) => (
@@ -75,16 +72,7 @@ class Header extends React. Component<Props, State>{
     )
     let isVisibleNewMsgs = true ? true : false;
 
-    let BtnBadge = (props: any) => {
-      let mtch = props.data;
 
-        return (
-          <div>
-            <button onClick={() => { }} className="btn btn-primary" > New: </button>
-          </div>
-        )
-
-      }
 
     return (
       <nav>
@@ -93,7 +81,7 @@ class Header extends React. Component<Props, State>{
             {this.state.isVisible ? <Btn to="/home" label="Home" /> : null}
             {this.state.isVisible ? <Btn to="/deck" label="Deck" /> : null}
             {this.state.isVisible ? <Btn to="/logout" label="|->" /> : null}
-        
+            <button type="button" onClick= {this.shuffle}  className="btn btn-primary"> Shuffle </button>
           </div>
           {this.state.isVisible ? <span className="float-right"> ver: </span> : null}
         </div>

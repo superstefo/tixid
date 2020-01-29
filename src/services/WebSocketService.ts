@@ -3,13 +3,14 @@ import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 
 class WebSocketService extends React.Component {
-
+    subscribtions: Map<string, any>
     stompClient: any
     gameId: string
     constructor(props: {}) {
         super(props);
         //this.context = {};
         this.gameId = "game-001"
+        this.subscribtions = new Map()
     };
 
     connect = () => {
@@ -34,37 +35,42 @@ class WebSocketService extends React.Component {
         };
 
         let connectCallback = (frame: any) => {
+            console.log(frame);
         }
-      //    console.log(frame);
-            //    this.stompClient.subscribe('/topic/greetings555555', (messageOutput: any) => {
-            //         console.log(messageOutput);
-            //         console.log("messageOutput");
-            //         //this.showMessageOutput(JSON.parse(messageOutput.body));
-            //     });
+        //    console.log(frame);
+        //    this.stompClient.subscribe('/topic/greetings555555', (messageOutput: any) => {
+        //         console.log(messageOutput);
+        //         console.log("messageOutput");
+        //         //this.showMessageOutput(JSON.parse(messageOutput.body));
+        //     });
 
         let errorCallback = (one: any, two: any) => {
             console.log(one);
             console.log(two);
         }
 
-        let closeEventCallback = (one: any, two: any) => {
-            console.log(one);
+        let closeEventCallback = (one1: any, two: any) => {
+            console.log(one1);
             console.log(two);
         }
 
         this.stompClient = Stomp.over(sock);
-        if (this.stompClient) { ///client.connect(headers, connectCallback, errorCallback, closeEventCallback);
-            this.stompClient.connect({}, connectCallback, errorCallback, closeEventCallback)
+        if (this.stompClient) {
+            this.stompClient.connect("login", "passcode", connectCallback, closeEventCallback, "host222");
             this.stompClient.reconnect_delay = 5000;
         }
     }
 
     subscribe = (topic: string, callback: Function) => {
-        if (this.stompClient === null) {
+        if (this.stompClient === null || !topic || !callback) {
+            return;
+        }
+        if (this.subscribtions.has(topic)) {
             return;
         }
 
-        this.stompClient.subscribe(topic, callback);
+        let subscribtion = this.stompClient.subscribe(topic, callback);
+        this.subscribtions.set(topic, subscribtion) //[topic] = subscribtion;
     }
 
     disconnect = () => {

@@ -59,8 +59,10 @@ class OwnCard extends React.Component<CardProps, ICardState>{
     let promise = AjaxService.doPost("http://localhost:8585/hand/card/" + gameId + "/" + cardId, {}, {});
     this.isEnabled = false;
     this.setInvisible()
+    // disable all cards for this round
     promise.catch((error) => {
       console.error(error);
+      // enable all cards for this round
       this.isEnabled = true;
     });
   }

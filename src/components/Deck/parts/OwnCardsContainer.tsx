@@ -19,6 +19,7 @@ type State = {
 let arg: Props;
 class OwnCardsContainer extends React.Component<Props, State>{
 
+  store: any;
   Refs: Array<any>
 
   constructor(props: {}) {
@@ -32,28 +33,37 @@ class OwnCardsContainer extends React.Component<Props, State>{
     };
     //  this.onClickFunc = props.onClickFunc;
     this.Refs = [];
+    this.store = {}
   }
 
   componentDidMount() {
-    ContextBeanAware.add(this)
-    WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);
+    ContextBeanAware.add(this);
+    WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);//// move this so to be global
+  }
+
+  componentWillUnmount() {
+    ContextBeanAware.remove(this)
   }
 
   callBack = (messageOutput: any) => {
-  //  console.log(messageOutput);
+    //  console.log(messageOutput);
     let res = messageOutput?.body
     res = JSON.parse(res);
-   // let card = this.getCard(res?.cardId, this.Refs);//this.Refs[0];
-  //  console.log(card);
-  //  card?.setInvisible();
+    // let card = this.getCard(res?.cardId, this.Refs);//this.Refs[0];
+    //  console.log(card);
+    //  card?.setInvisible();
 
     let AllCardsRefs = ContextBeanAware.get("PlayedCardsContainer1")?.Refs;
-   // console.log(AllCardsRefs);
+    console.log(AllCardsRefs);
+    this.placeCardOnDeck();
+  }
+
+  placeCardOnDeck = () => {
+    let AllCardsRefs = ContextBeanAware.get("PlayedCardsContainer1")?.Refs;
 
     for (let index = 0; index < AllCardsRefs?.length; index++) {
       const element = AllCardsRefs[index] as PlayedCard;
       if (element?.state?.opacity === 0) {
-      //  console.log("----------- break ");
         element.placeCardOnDeck()
         break
       }
@@ -61,15 +71,15 @@ class OwnCardsContainer extends React.Component<Props, State>{
   }
 
   //Get
-  getCard = (id: string, refs: Array<any>) : OwnCard | null => {
-    for (let index = 0; index < refs.length; index++) {
-      let card = refs[index];
-      if (card?.state?.cardId === id) {
-        return card
-      }
-    }
-    return null;
-  }
+  // getCard = (id: string, refs: Array<any>) : OwnCard | null => {
+  //   for (let index = 0; index < refs.length; index++) {
+  //     let card = refs[index];
+  //     if (card?.state?.cardId === id) {
+  //       return card
+  //     }
+  //   }
+  //   return null;
+  // }
 
   clickOnCard = (cardOnclickFunc: Function) => {
     // let res = cardOnclickFunc();
