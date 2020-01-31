@@ -1,25 +1,26 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import ContextBeanAware from '../services/ContextBeanAware';
+import GameService from '../services/GameService';
 //import CashService from '../services/CashService';
 //import Const from '../services/Constants'
 //import MatchDecoratorService from '../services/MatchDecoratorService';
 //import { withRouter } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 
-type Props = { beanId: string, history : any  } & RouteComponentProps<{}>;
+type Props = { beanId: string, history: any } & RouteComponentProps<{}>;
 
-type State = { 
-    beanId: string,
-    isVisible: boolean 
+type State = {
+  beanId: string,
+  isVisible: boolean
 };
-class Header extends React. Component<Props, State>{
+class Header extends React.Component<Props, State>{
   initialTitle: string;
   constructor(props: Props) {
     super(props);
     this.state = {
       beanId: props.beanId,
-      isVisible: true 
+      isVisible: true
 
     };
     this.initialTitle = document.title;
@@ -29,19 +30,21 @@ class Header extends React. Component<Props, State>{
     this.setState(obj);
   }
 
-
   changeButtonVisibility = (obj: any) => {
     this.setState(obj);
   }
 
   componentDidMount() {
-   // BeanContextAware.add(this);
+    let promise = GameService.createGame("user01");
+    promise.then((result) => {
+      console.log(result);
+    })
+    // BeanContextAware.add(this);
   }
 
   componentWillUnmount() {
-   // BeanContextAware.remove(this);
+    // BeanContextAware.remove(this);
   }
-
 
   startFlashTabTitle = () => {
     // this.flashIntervalObj = setInterval(
@@ -55,9 +58,8 @@ class Header extends React. Component<Props, State>{
     // );
   }
 
-
   shuffle = () => {
-    ContextBeanAware.get
+    //ContextBeanAware.get
   }
 
   render() {
@@ -81,7 +83,7 @@ class Header extends React. Component<Props, State>{
             {this.state.isVisible ? <Btn to="/home" label="Home" /> : null}
             {this.state.isVisible ? <Btn to="/deck" label="Deck" /> : null}
             {this.state.isVisible ? <Btn to="/logout" label="|->" /> : null}
-            <button type="button" onClick= {this.shuffle}  className="btn btn-primary"> Shuffle </button>
+            <button type="button" onClick={this.shuffle} className="btn btn-primary"> Shuffle </button>
           </div>
           {this.state.isVisible ? <span className="float-right"> ver: </span> : null}
         </div>
@@ -89,16 +91,16 @@ class Header extends React. Component<Props, State>{
     );
   }
 }
-let BtnBadge2 = (props: {data:{}}) => {
-    let mtch = props.data;
+let BtnBadge2 = (props: { data: {} }) => {
+  let mtch = props.data;
 
-      return (
-        <div>
-          <button onClick={() => { }} className="btn btn-primary" > New: </button>
-        </div>
-      )
-   
-    }
+  return (
+    <div>
+      <button onClick={() => { }} className="btn btn-primary" > New: </button>
+    </div>
+  )
+
+}
 export default withRouter(Header);
 
  //   {this.state.isVisible ? <span className="float-left"> {CashService.getPhone()} </span> : null}

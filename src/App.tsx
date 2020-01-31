@@ -11,18 +11,17 @@ document.body.classList.add('bg-success');
 const stylesObj = {
   background: "green"
 };
-WebSocketService.connect()
+WebSocketService.connect() 
   let style = {
     stylesObj
   }
-const App: React.FC = () => {
+const App: React.FC = () => {  
   return (
     <div className="container" style={{ paddingTop: 10 }}>
-
-      <Router>
+      <Router basename={'/'}>
         <Header beanId="header1" />
         <Switch>
-          
+    
           < Route path="/deck" component={Deck} />
           < Route path="*" component={Home} />
         </Switch>

@@ -47,7 +47,6 @@ class PlayedCard extends React.Component<PlayedCardProps, ICardState>{
     this.setState(obj);
   }
 
-
   doVote = () => {
     if (!this.isEnabled) {
       return;

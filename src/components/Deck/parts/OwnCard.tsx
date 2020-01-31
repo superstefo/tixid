@@ -56,6 +56,7 @@ class OwnCard extends React.Component<CardProps, ICardState>{
     }
     let gameId = "game-001"//this.state.gameId;
     let cardId = this.state.cardId;
+    
     let promise = AjaxService.doPost("http://localhost:8585/hand/card/" + gameId + "/" + cardId, {}, {});
     this.isEnabled = false;
     this.setInvisible()

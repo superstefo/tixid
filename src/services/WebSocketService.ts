@@ -2,15 +2,20 @@ import React from 'react';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 
+
 class WebSocketService extends React.Component {
     subscribtions: Map<string, any>
+    subscribeCalls: Map<string, Function>
     stompClient: any
     gameId: string
+    isConnected: boolean
     constructor(props: {}) {
         super(props);
         //this.context = {};
         this.gameId = "game-001"
         this.subscribtions = new Map()
+        this.subscribeCalls = new Map()
+        this.isConnected = false;
     };
 
     connect = () => {
@@ -35,23 +40,20 @@ class WebSocketService extends React.Component {
         };
 
         let connectCallback = (frame: any) => {
-            console.log(frame);
-        }
-        //    console.log(frame);
-        //    this.stompClient.subscribe('/topic/greetings555555', (messageOutput: any) => {
-        //         console.log(messageOutput);
-        //         console.log("messageOutput");
-        //         //this.showMessageOutput(JSON.parse(messageOutput.body));
-        //     });
+            //console.log(frame);
+            this.isConnected = true;
 
-        let errorCallback = (one: any, two: any) => {
-            console.log(one);
-            console.log(two);
+            this.subscribeCalls.forEach((func, topic) => {
+                this.subscribe(topic, func);
+            })
+            this.subscribeCalls = new Map();
         }
 
         let closeEventCallback = (one1: any, two: any) => {
             console.log(one1);
             console.log(two);
+            this.isConnected = false;
+            this.subscribeCalls = new Map();
         }
 
         this.stompClient = Stomp.over(sock);
@@ -68,7 +70,9 @@ class WebSocketService extends React.Component {
         if (this.subscribtions.has(topic)) {
             return;
         }
-
+        if (!this.isConnected) {
+            this.subscribeCalls.set(topic, callback);
+        }
         let subscribtion = this.stompClient.subscribe(topic, callback);
         this.subscribtions.set(topic, subscribtion) //[topic] = subscribtion;
     }

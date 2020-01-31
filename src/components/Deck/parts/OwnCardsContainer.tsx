@@ -54,7 +54,7 @@ class OwnCardsContainer extends React.Component<Props, State>{
     //  card?.setInvisible();
 
     let AllCardsRefs = ContextBeanAware.get("PlayedCardsContainer1")?.Refs;
-    console.log(AllCardsRefs);
+  
     this.placeCardOnDeck();
   }
 
