@@ -1,7 +1,7 @@
 import React from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
-//import Const from './Constants';
-//import CashService from './CashService';
+import Const from './Constants';
+import CashService from './CashService';
 
 class AjaxService extends React.Component {
   constructor(props: {}) {

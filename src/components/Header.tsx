@@ -62,6 +62,10 @@ class Header extends React.Component<Props, State>{
     //ContextBeanAware.get
   }
 
+  draw = () => {
+    //ContextBeanAware.get
+  }
+
   render() {
     let Btn = (props: any) => (
       <div>
@@ -72,10 +76,7 @@ class Header extends React.Component<Props, State>{
         </NavLink>
       </div>
     )
-    let isVisibleNewMsgs = true ? true : false;
-
-
-
+   
     return (
       <nav>
         <div className="text-center">
@@ -83,6 +84,7 @@ class Header extends React.Component<Props, State>{
             {this.state.isVisible ? <Btn to="/home" label="Home" /> : null}
             {this.state.isVisible ? <Btn to="/deck" label="Deck" /> : null}
             {this.state.isVisible ? <Btn to="/logout" label="|->" /> : null}
+            <button type="button" onClick={this.draw} className="btn btn-primary"> draw </button>
             <button type="button" onClick={this.shuffle} className="btn btn-primary"> Shuffle </button>
           </div>
           {this.state.isVisible ? <span className="float-right"> ver: </span> : null}

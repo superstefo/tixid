@@ -39,8 +39,12 @@ class OwnCardsContainer extends React.Component<Props, State>{
   componentDidMount() {
     ContextBeanAware.add(this);
     WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);//// move this so to be global
+    WebSocketService.subscribe('/user/topic/hello', this.dd);//// move this so to be global
   }
+  dd = (messageOutput: any) => {
+      console.log(messageOutput);
 
+  }
   componentWillUnmount() {
     ContextBeanAware.remove(this)
   }
@@ -65,7 +69,7 @@ class OwnCardsContainer extends React.Component<Props, State>{
       const element = AllCardsRefs[index] as PlayedCard;
       if (element?.state?.opacity === 0) {
         element.placeCardOnDeck()
-        break
+        break;
       }
     }
   }

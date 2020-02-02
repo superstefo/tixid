@@ -1,6 +1,7 @@
 import React from 'react';
 //import Const from './Constants';
 import AjaxService from './AjaxService';
+import CashService from './CashService';
 
 class GameService extends React.Component {
   constructor(props: {}) {
