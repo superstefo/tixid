@@ -19,6 +19,7 @@ class WebSocketService extends React.Component {
     };
 
     connect = () => {
+        return; /////////////////////////////////////////////////////////////////////////////////////////////////////
         var url = 'http://localhost:8585/gs-guide-websocket';
         var options = {};
         var sock = new SockJS(url, null, options);
@@ -64,6 +65,7 @@ class WebSocketService extends React.Component {
     }
 
     subscribe = (topic: string, callback: Function) => {
+        return
         if (this.stompClient === null || !topic || !callback) {
             return;
         }

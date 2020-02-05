@@ -14,6 +14,7 @@ class AjaxService extends React.Component {
     arg.method = method;
     arg.url = url;
     arg.data = data;
+    arg.withCredentials = true;
     arg.headers = headers;
 
     return axios(arg);

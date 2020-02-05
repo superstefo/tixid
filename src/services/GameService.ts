@@ -11,7 +11,7 @@ class GameService extends React.Component {
 
 
   createGame = (userId: string) => {
-    return AjaxService.doPost("http://localhost:8585/game/"+userId, {}, {});
+    //return AjaxService.doPost("http://localhost:8585/game/"+userId, {}, {});
   };
 
  

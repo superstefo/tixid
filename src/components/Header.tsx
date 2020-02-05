@@ -4,7 +4,7 @@ import ContextBeanAware from '../services/ContextBeanAware';
 import GameService from '../services/GameService';
 //import CashService from '../services/CashService';
 //import Const from '../services/Constants'
-//import MatchDecoratorService from '../services/MatchDecoratorService';
+import AjaxService from '../services/AjaxService';
 //import { withRouter } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 
@@ -36,9 +36,9 @@ class Header extends React.Component<Props, State>{
 
   componentDidMount() {
     let promise = GameService.createGame("user01");
-    promise.then((result) => {
-      console.log(result);
-    })
+    // promise.then((result) => {
+    //   console.log(result);
+    // })
     // BeanContextAware.add(this);
   }
 
@@ -62,6 +62,15 @@ class Header extends React.Component<Props, State>{
     //ContextBeanAware.get
   }
 
+  login = () => {
+    AjaxService.doPost('http://localhost:8585/dologin?username=tester&password=a', {
+      username : "tester",
+      name : "tester",
+      password : "a"
+    }, {})
+  }
+
+
   draw = () => {
     //ContextBeanAware.get
   }
@@ -79,8 +88,10 @@ class Header extends React.Component<Props, State>{
    
     return (
       <nav>
+           
         <div className="text-center">
           <div className="btn-group">
+          <button type="button" onClick={this.login} className="btn btn-primary"> login </button>
             {this.state.isVisible ? <Btn to="/home" label="Home" /> : null}
             {this.state.isVisible ? <Btn to="/deck" label="Deck" /> : null}
             {this.state.isVisible ? <Btn to="/logout" label="|->" /> : null}
@@ -106,3 +117,6 @@ let BtnBadge2 = (props: { data: {} }) => {
 export default withRouter(Header);
 
  //   {this.state.isVisible ? <span className="float-left"> {CashService.getPhone()} </span> : null}
+
+
+
