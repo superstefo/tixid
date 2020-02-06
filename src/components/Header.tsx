@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import ContextBeanAware from '../services/ContextBeanAware';
+import WebSocketService from '../services/WebSocketService';
 import GameService from '../services/GameService';
 //import CashService from '../services/CashService';
 //import Const from '../services/Constants'
@@ -63,11 +64,18 @@ class Header extends React.Component<Props, State>{
   }
 
   login = () => {
-    AjaxService.doPost('http://localhost:8585/dologin?username=tester&password=a', {
-      username : "tester",
-      name : "tester",
-      password : "a"
+    let promise = AjaxService.doPost('http://localhost:8585/dologin?username=tester&password=a', {
+      username: "tester",
+      name: "tester",
+      password: "a"
     }, {})
+
+    promise.then((data) => {
+      console.log(data);
+
+
+      WebSocketService.connect()
+    })
   }
 
 
@@ -85,13 +93,13 @@ class Header extends React.Component<Props, State>{
         </NavLink>
       </div>
     )
-   
+
     return (
       <nav>
-           
+
         <div className="text-center">
           <div className="btn-group">
-          <button type="button" onClick={this.login} className="btn btn-primary"> login </button>
+            <button type="button" onClick={this.login} className="btn btn-primary"> login </button>
             {this.state.isVisible ? <Btn to="/home" label="Home" /> : null}
             {this.state.isVisible ? <Btn to="/deck" label="Deck" /> : null}
             {this.state.isVisible ? <Btn to="/logout" label="|->" /> : null}
@@ -117,6 +125,7 @@ let BtnBadge2 = (props: { data: {} }) => {
 export default withRouter(Header);
 
  //   {this.state.isVisible ? <span className="float-left"> {CashService.getPhone()} </span> : null}
+
 
 
 

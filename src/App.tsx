@@ -11,7 +11,7 @@ document.body.classList.add('bg-success');
 const stylesObj = {
   background: "green"
 };
-WebSocketService.connect() 
+//WebSocketService.connect() 
   let style = {
     stylesObj
   }
