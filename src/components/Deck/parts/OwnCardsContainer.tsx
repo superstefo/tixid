@@ -28,7 +28,7 @@ class OwnCardsContainer extends React.Component<Props, State>{
     this.state = {
       beanId: "OwnCardsContainer1",
       //  opacity: props.opacity,
-      gameId: "game-001",
+      gameId: "gameId-000",
       //  cardId: "card-002"
     };
     //  this.onClickFunc = props.onClickFunc;
@@ -38,11 +38,11 @@ class OwnCardsContainer extends React.Component<Props, State>{
 
   componentDidMount() {
     ContextBeanAware.add(this);
-  //  WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);//// move this so to be global
-  //  WebSocketService.subscribe('/user/topic/hello', this.dd);//// move this so to be global
+    WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);//// move this so to be global
+    WebSocketService.subscribe('/user/topic/hello', this.dd);//// move this so to be global
   }
   dd = (messageOutput: any) => {
-      console.log(messageOutput);
+    console.log(messageOutput);
 
   }
   componentWillUnmount() {
@@ -52,16 +52,19 @@ class OwnCardsContainer extends React.Component<Props, State>{
   callBack = (messageOutput: any) => {
     //  console.log(messageOutput);
     let res = messageOutput?.body
-    res = JSON.parse(res);
+    res = JSON.parse(res || {});
     // let card = this.getCard(res?.cardId, this.Refs);//this.Refs[0];
     //  console.log(card);
     //  card?.setInvisible();
 
     let AllCardsRefs = ContextBeanAware.get("PlayedCardsContainer1")?.Refs;
-  
+
     this.placeCardOnDeck();
   }
+  draw = (messageOutput: any) => {
+    console.log(messageOutput);
 
+  }
   placeCardOnDeck = () => {
     let AllCardsRefs = ContextBeanAware.get("PlayedCardsContainer1")?.Refs;
 

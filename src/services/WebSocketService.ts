@@ -41,7 +41,6 @@ class WebSocketService extends React.Component {
         };
 
         let connectCallback = (frame: any) => {
-            //console.log(frame);
             this.isConnected = true;
 
             this.subscribeCalls.forEach((func, topic) => {
@@ -50,9 +49,8 @@ class WebSocketService extends React.Component {
             this.subscribeCalls = new Map();
         }
 
-        let closeEventCallback = (one1: any, two: any) => {
+        let closeEventCallback = (one1: any) => {
             console.log(one1);
-            console.log(two);
             this.isConnected = false;
             this.subscribeCalls = new Map();
         }
@@ -65,7 +63,6 @@ class WebSocketService extends React.Component {
     }
 
     subscribe = (topic: string, callback: Function) => {
-        return
         if (this.stompClient === null || !topic || !callback) {
             return;
         }
@@ -82,6 +79,7 @@ class WebSocketService extends React.Component {
     disconnect = () => {
         if (this.stompClient != null) {
             this.stompClient.disconnect();
+            this.subscribtions = new Map();
         }
 
         console.log("Disconnected");

@@ -62,7 +62,14 @@ class Header extends React.Component<Props, State>{
   shuffle = () => {
     //ContextBeanAware.get
   }
+  logout = () => {
+    let promise = AjaxService.doPost('http://localhost:8585/logout', {}, {})
 
+    promise.then((data) => {
+      console.log(data);
+      WebSocketService.disconnect()
+    })
+  }
   login = () => {
     let promise = AjaxService.doPost('http://localhost:8585/dologin?username=tester&password=a', {
       username: "tester",
@@ -81,6 +88,14 @@ class Header extends React.Component<Props, State>{
 
   draw = () => {
     //ContextBeanAware.get
+
+    let promise = AjaxService.doGet('http://localhost:8585/player/hand/' +  'gameId-000' , {    })
+
+    promise.then((data) => {
+      console.log(data);
+
+
+    })
   }
 
   render() {
@@ -102,7 +117,8 @@ class Header extends React.Component<Props, State>{
             <button type="button" onClick={this.login} className="btn btn-primary"> login </button>
             {this.state.isVisible ? <Btn to="/home" label="Home" /> : null}
             {this.state.isVisible ? <Btn to="/deck" label="Deck" /> : null}
-            {this.state.isVisible ? <Btn to="/logout" label="|->" /> : null}
+
+            <button type="button" onClick={this.logout} className="btn btn-primary"> |-> </button>
             <button type="button" onClick={this.draw} className="btn btn-primary"> draw </button>
             <button type="button" onClick={this.shuffle} className="btn btn-primary"> Shuffle </button>
           </div>

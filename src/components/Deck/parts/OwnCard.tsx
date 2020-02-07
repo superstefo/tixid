@@ -42,8 +42,8 @@ class OwnCard extends React.Component<CardProps, ICardState>{
   // }
 
 
-  componentDidMount() {///0886625452
-    //  WebSocketService.subscribe('/topic/card-on-deck/"+ gameId', this.wrapper);
+  componentDidMount() {
+  
   }
 
   changeState = (obj: any) => {
