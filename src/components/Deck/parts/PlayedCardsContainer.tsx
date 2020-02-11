@@ -40,7 +40,10 @@ class PlayedCardsContainer extends React.Component<Props, State>{
   componentDidMount() {
     ContextBeanAware.add(this);
   }
-
+  componentWillUnmount() {
+    ContextBeanAware.remove(this)
+  }
+  
   render() {
     let props = {
       beanId: "string",

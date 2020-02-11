@@ -1,53 +1,66 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import OwnCard from "./OwnCard";
+import OwnCard, { CardProps } from "./OwnCard";
 import PlayedCard from "./PlayedCard";
 import Separator from "./Separator";
 import { RouteComponentProps } from 'react-router';
 import WebSocketService from '../../../services/WebSocketService';
 import ContextBeanAware from '../../../services/ContextBeanAware';
-
+import CashService from '../../../services/CashService';
 type Props = { beanId: string, history: any } & RouteComponentProps<{}>;
 
 type State = {
-  beanId: string,
-  // isVisible: boolean,
-  gameId: string
-  //  cardId: string
+  gameId: string,
+  cardProps: any
 };
 
 let arg: Props;
 class OwnCardsContainer extends React.Component<Props, State>{
-
   store: any;
+  beanId: string;
   Refs: Array<any>
-
   constructor(props: {}) {
     super(arg);
-
     this.state = {
-      beanId: "OwnCardsContainer1",
-      //  opacity: props.opacity,
       gameId: "gameId-000",
-      //  cardId: "card-002"
+      cardProps: this.getCardProps()
     };
     //  this.onClickFunc = props.onClickFunc;
+    this.beanId = "ownCardsContainer1"
     this.Refs = [];
     this.store = {}
   }
 
   componentDidMount() {
     ContextBeanAware.add(this);
-    WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);//// move this so to be global
-    WebSocketService.subscribe('/user/topic/hello', this.dd);//// move this so to be global
-  }
-  dd = (messageOutput: any) => {
-    console.log(messageOutput);
-
+    //  WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);//// move this so to be global
+    //WebSocketService.subscribe('/user/topic/draw', this.onCardDrawResults);//// move this so to be global
   }
   componentWillUnmount() {
-    ContextBeanAware.remove(this)
+    console.log(this.state.cardProps);
+
+    ContextBeanAware.remove(this);
+    this.Refs = [];
+    this.setState({ cardProps: null });
+
   }
+
+  getCardProps = () => {
+    return CashService.ownCardProps
+  }
+
+  setStateCardProps = () => {
+    // return CashService.ownCardProps
+    console.log("                                    setStateCardProps ");
+
+    this.setState({ cardProps: this.getCardProps() });
+
+  }
+  // onCardDrawResults = (ws: any) => {
+  //   let res = JSON.parse(ws.body)
+  //   console.log("                             onCardDrawResults      ");
+  //   this.setState({ cardProps: res });
+  // }
 
   callBack = (messageOutput: any) => {
     //  console.log(messageOutput);
@@ -60,10 +73,6 @@ class OwnCardsContainer extends React.Component<Props, State>{
     let AllCardsRefs = ContextBeanAware.get("PlayedCardsContainer1")?.Refs;
 
     this.placeCardOnDeck();
-  }
-  draw = (messageOutput: any) => {
-    console.log(messageOutput);
-
   }
   placeCardOnDeck = () => {
     let AllCardsRefs = ContextBeanAware.get("PlayedCardsContainer1")?.Refs;
@@ -94,40 +103,43 @@ class OwnCardsContainer extends React.Component<Props, State>{
   }
 
   render() {
-    let props = {
-      beanId: "string",
-      //opacity: 1,
-      cardId: "",
-      imgShown: "string",
-      isFaceShown: true
+    console.log("own cards container  render  ");
+    console.log(this.Refs);
+    console.log(typeof this.Refs);
+    let makeCards = (arg: any) => {
+
+      if (!arg) {
+        return (<div> </div>)
+      }
+      var indents = [];
+      for (var i = 0; i < arg.length; i++) {
+        let props = {
+          cardId: arg[i]?.cardId,
+          imgSrc: arg[i]?.imgSrc,
+          opacity: 1
+        }
+
+        indents.push(
+          ((i: number, props: CardProps) => {
+            console.log(props);
+
+            return (<div key={i} className="col-sm"  >
+              <OwnCard   {...props} ref={(input) => { this.Refs[i] = input }} />
+            </div>)
+          })(i, props)
+        );
+      }
+      return indents;
     }
-
+    if (!!this.Refs[0]) {
+      for (var i = 0; i < this.state.cardProps.length; i++) {
+        this.Refs[i].setImage(this.state.cardProps[i]?.imgSrc)
+      }
+    }
     return (
+
       <div id="ownCardsContainer" className="row" >
-
-        <div className="col-sm"  >
-          <OwnCard opacity={1}  {...props} ref={(input) => { this.Refs[0] = input }} />
-        </div>
-
-        <div className="col-sm" >
-          <OwnCard opacity={1} {...props} ref={(input) => { this.Refs[1] = input }} />
-        </div>
-
-        <div className="col-sm" >
-          <OwnCard opacity={1}  {...props} ref={(input) => { this.Refs[2] = input }} />
-        </div>
-
-        <div className="col-sm" >
-          <OwnCard opacity={1}{...props} ref={(input) => { this.Refs[3] = input }} />
-        </div>
-
-        <div className="col-sm" >
-          <OwnCard opacity={1}{...props} ref={(input) => { this.Refs[4] = input }} />
-        </div>
-
-        <div className="col-sm"  >
-          <OwnCard opacity={1}{...props} ref={(input) => { this.Refs[5] = input }} />
-        </div>
+        {makeCards(this.state.cardProps)}
       </div>
     );
   }

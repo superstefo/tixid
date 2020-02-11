@@ -71,6 +71,7 @@ class WebSocketService extends React.Component {
         }
         if (!this.isConnected) {
             this.subscribeCalls.set(topic, callback);
+            return;
         }
         let subscribtion = this.stompClient.subscribe(topic, callback);
         this.subscribtions.set(topic, subscribtion) //[topic] = subscribtion;

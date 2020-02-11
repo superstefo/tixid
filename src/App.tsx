@@ -3,6 +3,7 @@ import WebSocketService from './services/WebSocketService';
 import Home from './components/Home';
 import Header from './components/Header';
 import Deck from './components/Deck/Deck';
+import Login from './components/Login/Login';
 //import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -21,7 +22,7 @@ const App: React.FC = () => {
       <Router basename={'/'}>
         <Header beanId="header1" />
         <Switch>
-    
+          < Route path="/login" component={Login} />
           < Route path="/deck" component={Deck} />
           < Route path="*" component={Home} />
         </Switch>

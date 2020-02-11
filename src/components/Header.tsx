@@ -70,21 +70,7 @@ class Header extends React.Component<Props, State>{
       WebSocketService.disconnect()
     })
   }
-  login = () => {
-    let promise = AjaxService.doPost('http://localhost:8585/dologin?username=tester&password=a', {
-      username: "tester",
-      name: "tester",
-      password: "a"
-    }, {})
-
-    promise.then((data) => {
-      console.log(data);
-
-
-      WebSocketService.connect()
-    })
-  }
-
+  
 
   draw = () => {
     //ContextBeanAware.get
@@ -114,7 +100,8 @@ class Header extends React.Component<Props, State>{
 
         <div className="text-center">
           <div className="btn-group">
-            <button type="button" onClick={this.login} className="btn btn-primary"> login </button>
+         
+            {this.state.isVisible ? <Btn to="/login" label="Log in" /> : null}
             {this.state.isVisible ? <Btn to="/home" label="Home" /> : null}
             {this.state.isVisible ? <Btn to="/deck" label="Deck" /> : null}
 

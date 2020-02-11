@@ -45,7 +45,7 @@ class Deck extends React.Component<Props, State>{
     return (
       <div id="dd2" className="float-bottom text-center">
 
-        <PlayedCardsContainer beanId="all" />
+      
         <OwnCardsContainer beanId="own" />
       </div>
     );
@@ -53,3 +53,4 @@ class Deck extends React.Component<Props, State>{
 }
 
 export default withRouter(Deck);
+//  <PlayedCardsContainer beanId="all" />

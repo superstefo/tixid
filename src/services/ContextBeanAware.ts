@@ -11,7 +11,7 @@ class BeanContextAware extends React.Component {
     if (!bean || !bean.state) {
       throw new Error("Not allowed 'null' values for 'bean': " + bean + " !");
     }
-    let beanId = bean.state.beanId || bean.props.beanId;
+    let beanId = bean.beanId || bean.state.beanId || bean.props.beanId;
     if (!beanId) {
       throw new Error("Not allowed 'null' value for 'beanId' " + beanId + " !");
     }
@@ -36,7 +36,7 @@ class BeanContextAware extends React.Component {
       delete this.context[bean];
       return;
     }
-    let beanId = bean.state.beanId || bean.props.beanId;
+    let beanId = bean.beanId || bean.state.beanId || bean.props.beanId;
     delete this.context[beanId];
   }
 }
