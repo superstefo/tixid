@@ -25,8 +25,9 @@ class Login extends React.Component<{}, ILoginState> {
 
   componentDidMount() {
   }
+
   onKeyPress = (e: any) => {
-    console.log("on key press  " +this.state.nameValue);
+    console.log("on key press  " + this.state.nameValue);
     if (e.key !== 'Enter') {
       return;
     }
@@ -41,11 +42,11 @@ class Login extends React.Component<{}, ILoginState> {
 
   dologin = () => {
     console.log(this.state.nameValue);
-    
-    let promise = AjaxService.doPost('http://localhost:8585/dologin', {//?username='+this.state.nameValue +'&password=a
-   //   username: this.state.nameValue,
- // name: this.state.nameValue,
-   //   password: "a"
+
+    let promise = AjaxService.doPost('http://localhost:8585/login', {//?username='+this.state.nameValue +'&password=a
+      //   username: this.state.nameValue,
+      // name: this.state.nameValue,
+      //   password: "a"
     }, {
       pswd: "a",
       usrnm: this.state?.nameValue
@@ -57,7 +58,7 @@ class Login extends React.Component<{}, ILoginState> {
   }
 
   render() {
-   let inputProps = {
+    let inputProps = {
       placeholder: 'name...',
       value: this.state?.nameValue,
       onChange: this.onChange,
