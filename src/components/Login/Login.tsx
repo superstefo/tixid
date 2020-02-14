@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import WebSocketService from '../../services/WebSocketService';
 import GameService from '../../services/GameService';
 //import CashService from '../services/CashService';
-import Const from '../../services/Constants'
+import Const from '../../services/Constants';
 import AjaxService from '../../services/AjaxService';
 
 interface ILoginState {
@@ -17,9 +17,6 @@ class Login extends React.Component<{}, ILoginState> {
 
     this.state = {
       nameValue: ''
-
-      //  isLoading: false,
-      //  error: null,
     };
   }
 
@@ -43,14 +40,11 @@ class Login extends React.Component<{}, ILoginState> {
   dologin = () => {
     console.log(this.state.nameValue);
 
-    let promise = AjaxService.doPost('http://localhost:8585/login', {//?username='+this.state.nameValue +'&password=a
-      //   username: this.state.nameValue,
-      // name: this.state.nameValue,
-      //   password: "a"
-    }, {
-      pswd: "a",
-      usrnm: this.state?.nameValue
-    })
+    let promise = AjaxService.doPost('http://localhost:8585/login', {},
+      {
+        pswd: "a",
+        usrnm: this.state?.nameValue
+      })
     this.setState({ nameValue: '' });
     promise.then((data) => {
       WebSocketService.connect()

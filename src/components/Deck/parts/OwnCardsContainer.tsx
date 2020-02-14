@@ -33,9 +33,10 @@ class OwnCardsContainer extends React.Component<Props, State>{
 
   componentDidMount() {
     ContextBeanAware.add(this);
-    //  WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);//// move this so to be global
+    WebSocketService.subscribe('/topic/card-on-deck/' + this.state.gameId, this.callBack);//// move this so to be global
     //WebSocketService.subscribe('/user/topic/draw', this.onCardDrawResults);//// move this so to be global
   }
+
   componentWillUnmount() {
     console.log(this.state.cardProps);
 
@@ -54,7 +55,6 @@ class OwnCardsContainer extends React.Component<Props, State>{
     console.log("                                    setStateCardProps ");
 
     this.setState({ cardProps: this.getCardProps() });
-
   }
   // onCardDrawResults = (ws: any) => {
   //   let res = JSON.parse(ws.body)
