@@ -86,12 +86,7 @@ class WebSocketService extends React.Component {
         console.log("Disconnected");
     }
 
-    sendMessage = () => {
-        var from = "stefan";
-        var text = 'text';
-        this.stompClient.send("/app/hello", {},
-            JSON.stringify({ 'from': from, 'text': text }));
-    }
+
 
 }
 export default new WebSocketService({});

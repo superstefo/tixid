@@ -3,7 +3,8 @@ import { NavLink, withRouter } from "react-router-dom";
 import ContextBeanAware from '../services/ContextBeanAware';
 import WebSocketService from '../services/WebSocketService';
 import GameService from '../services/GameService';
-//import CashService from '../services/CashService';
+
+import CashService from '../services/CashService';
 //import Const from '../services/Constants'
 import AjaxService from '../services/AjaxService';
 //import { withRouter } from 'react-router-dom';
@@ -60,7 +61,7 @@ class Header extends React.Component<Props, State>{
   }
 
   shuffle = () => {
-    //ContextBeanAware.get
+
   }
   logout = () => {
     let promise = AjaxService.doPost('http://localhost:8585/logout', {}, {})
@@ -71,11 +72,10 @@ class Header extends React.Component<Props, State>{
     })
   }
   
-
   draw = () => {
-    //ContextBeanAware.get
+ 
 
-    let promise = AjaxService.doGet('http://localhost:8585/player/hand/' +  'gameId-000' , {    })
+    let promise = AjaxService.doGet('http://localhost:8585/' + CashService.gameId + '/player/hand', {    })
 
     promise.then((data) => {
       console.log(data);
@@ -104,8 +104,7 @@ class Header extends React.Component<Props, State>{
             {this.state.isVisible ? <Btn to="/login" label="Log in" /> : null}
             {this.state.isVisible ? <Btn to="/home" label="Home" /> : null}
             {this.state.isVisible ? <Btn to="/deck" label="Deck" /> : null}
-
-            <button type="button" onClick={this.logout} className="btn btn-primary"> |-> </button>
+            
             <button type="button" onClick={this.draw} className="btn btn-primary"> draw </button>
             <button type="button" onClick={this.shuffle} className="btn btn-primary"> Shuffle </button>
           </div>
@@ -116,7 +115,6 @@ class Header extends React.Component<Props, State>{
   }
 }
 let BtnBadge2 = (props: { data: {} }) => {
-  let mtch = props.data;
 
   return (
     <div>
@@ -126,9 +124,6 @@ let BtnBadge2 = (props: { data: {} }) => {
 
 }
 export default withRouter(Header);
-
- //   {this.state.isVisible ? <span className="float-left"> {CashService.getPhone()} </span> : null}
-
 
 
 

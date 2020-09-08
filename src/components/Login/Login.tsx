@@ -24,7 +24,6 @@ class Login extends React.Component<{}, ILoginState> {
   }
 
   onKeyPress = (e: any) => {
-    console.log("on key press  " + this.state.nameValue);
     if (e.key !== 'Enter') {
       return;
     }

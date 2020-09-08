@@ -1,59 +1,58 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-import OwnCard from "./OwnCard";
-import { CardProps } from "./CardProps";
+import {  withRouter } from "react-router-dom";
+import {  CardProps } from "./CardProps";
 import CardsContainerI from "./CardsContainerI";
+import PlayedCard from "./DeckCard";
 import { RouteComponentProps } from 'react-router';
 import ContextBeanAware from '../../../services/ContextBeanAware';
 import CashService from '../../../services/CashService';
 
-
 type Props = { beanId: string } & RouteComponentProps<{}>;
 
 type State = {
+  beanId: string,
+  isVisible: boolean,
   cardProps: any
+
 };
 
-class OwnCardsContainer extends React.Component<Props, State> implements CardsContainerI {
-
-  beanId: string;
-
+class DeckCardsContainer extends React.Component<Props, State> implements CardsContainerI {
+  Refs: Array<any>
   constructor(props: Props) {
     super(props);
     this.state = {
-
+      beanId: props.beanId,
+      isVisible: true,
       cardProps: this.getCardProps()
     };
-    this.beanId = props.beanId;
+    this.Refs = [];
+  }
+
+  //@Override
+  setStateCardProps = () => {
+    this.setState({ cardProps: this.getCardProps() });
+  }
+
+  doVote = (cardId: string) => {
+    console.log("vote for this card")
   }
 
   componentDidMount() {
     ContextBeanAware.add(this);
   }
-
   componentWillUnmount() {
-    ContextBeanAware.remove(this);
+    ContextBeanAware.remove(this)
+
     this.setState({ cardProps: null });
   }
 
   getCardProps = () => {
-    return CashService.ownCardProps
+    return CashService.deckCardProps
   }
-
-  setStateCardProps = () => {
-    this.setState({ cardProps: this.getCardProps() });
-  }
-
-  onCardDrawResults = (ws: any) => {
-    let res = JSON.parse(ws.body)
-    this.setState({ cardProps: res });
-  }
-
-  clickOnCard = (cardOnclickFunc: Function) => {
-  }
-
   render() {
+ 
     let makeCards = (arg: any) => {
+
       if (!arg) {
         return (<div> </div>)
       }
@@ -68,8 +67,8 @@ class OwnCardsContainer extends React.Component<Props, State> implements CardsCo
         indents.push(
           ((i: number, props: CardProps) => {
             return (
-              <div key={i} className="col-sm"  >
-                <OwnCard  {...props} />
+              <div key={i} className="col-sm">
+                <PlayedCard  {...props} />
               </div>)
           })(i, props)
         );
@@ -78,12 +77,11 @@ class OwnCardsContainer extends React.Component<Props, State> implements CardsCo
     }
 
     return (
-
-      <div id="ownCardsContainer3" className="row" >
+      <div id="deckCardsContainer" className="row" >
         {makeCards(this.state.cardProps)}
       </div>
     );
   }
 }
 
-export default withRouter(OwnCardsContainer);
+export default withRouter(DeckCardsContainer);

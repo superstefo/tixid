@@ -3,42 +3,48 @@ import Const from './Constants';
 import AjaxService from './AjaxService';
 import WebSocketService from './WebSocketService'
 import ContextBeanAware from './ContextBeanAware'
+import CardsContainerI from "../components/Deck/parts/CardsContainerI";
 
-//type Props = { beanId: string, history: any } //& RouteComponentProps<{}>;
-
-// type State = {
-//   beanId: string,
-//   isVisible: boolean
-// };
 class CashService extends React.Component {
   gameId: string
   bookmarks: Array<string>
   ownCardProps: any
+  deckCardProps: any
   constructor(props: any) {
     super(props);
 
     this.bookmarks = [];
+    //TODO: remove
     this.gameId = "gameId-000"
     this.ownCardProps = null
+    this.deckCardProps = null
     this.init()
   };
 
   init = () => {
-
-    // WebSocketService.subscribe('/topic/card-on-deck/' + this.gameId, this.callBack);//// move this so to be global
-    WebSocketService.subscribe('/user/topic/draw', this.onCardDrawResults);//// move this so to be global
+    WebSocketService.subscribe('/topic/' + this.gameId + '/deck/card', this.onCardPlacedOnDeckResults);
+    WebSocketService.subscribe('/user/topic/hand', this.onCardDrawResults);
   }
 
+  onCardPlacedOnDeckResults = (wsMsg: any) => {
+    this.deckCardProps = JSON.parse(wsMsg.body);
+    let DeckCardsContainer = ContextBeanAware.get("deckCardsContainer1") as CardsContainerI;
 
-  onCardDrawResults = (ws: any) => {
-    this.ownCardProps = JSON.parse(ws.body);
-    let ownCardsContainefr1 = ContextBeanAware.get("ownCardsContainer1");
-    if (!ownCardsContainefr1) {
+    if (!DeckCardsContainer) {
       return;
     }
-    ownCardsContainefr1.setStateCardProps()
-    //console.log(res);
-    // this.setState({ cardProps: res });
+
+    DeckCardsContainer.setStateCardProps();
+  }
+
+  onCardDrawResults = (wsMsg: any) => {
+    this.ownCardProps = JSON.parse(wsMsg.body);
+    let OwnCardsContainer = ContextBeanAware.get("ownCardsContainer1") as CardsContainerI;
+
+    if (!OwnCardsContainer) {
+      return;
+    }
+    OwnCardsContainer.setStateCardProps()
   }
 
   persistAll = function (phone: string, obj: string) {
@@ -52,71 +58,7 @@ class CashService extends React.Component {
 
     return this.persistAll('post', url);
   };
-  //   getPhone = () => {
-  //     return this[Const.PHONE_HEADER_NAME];
-  //   };
 
-  //   setPhone = (phone) => {
-  //     this[Const.PHONE_HEADER_NAME] = phone;
-  //   };
-
-  //   /// token:
-  //   getToken = () => {
-  //     return this[Const.AUTH_HEADER_NAME];
-  //   };
-
-  //   setToken = (token) => {
-  //     this[Const.AUTH_HEADER_NAME] = token;
-  //   };
-
-  //   persistToken(token) {
-  //     AjaxService.doPut(Const.URLS.STORAGE_TOKEN + this.getPhone(), {
-  //       'json': JSON.stringify({ "token": token })
-  //     });
-  //   }
-
-  //   //// settings:
-  //   getSettings = () => {
-  //     return this.settings;
-  //   };
-
-  //   setSettings = (settings) => {
-  //     this.settings = settings;
-  //   };
-
-  //   persistSettings = (settings) => {
-  //     AjaxService.doPut(Const.URLS.STORAGE_SETTINGS + this.getPhone(), {
-  //       'json': JSON.stringify(settings)
-  //     });
-  //   }
-
-  //   /// bookmarks:
-  //   getBookmarks() {
-  //     return this.bookmarks;
-  //   }
-
-  //   setBookmarks(bookmarks) {
-  //     this.bookmarks = bookmarks;
-  //   }
-
-  //   getBookmarksAsObject() {
-  //     return this.bookmarks.reduce((json, value, key) => {
-  //       json[value] = key;
-  //       return json;
-  //     }, {});
-  //   }
-
-  //   persistBookmarks = function (arr) {
-  //     let promise = AjaxService.doPost(Const.URLS.STORAGE_BOOKMARKS + this.getPhone(), {
-  //       'json': JSON.stringify(arr)
-  //     }, {});
-
-  //     promise.then((data) => {
-  //       console.log(data);
-  //     }).catch((e) => {
-  //       console.error(e);
-  //     })
-  //   }
 }
 
 export default new CashService({});
