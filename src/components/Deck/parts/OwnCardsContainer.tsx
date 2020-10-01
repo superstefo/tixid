@@ -7,7 +7,6 @@ import { RouteComponentProps } from 'react-router';
 import ContextBeanAware from '../../../services/ContextBeanAware';
 import CashService from '../../../services/CashService';
 
-
 type Props = { beanId: string } & RouteComponentProps<{}>;
 
 type State = {
@@ -21,7 +20,6 @@ class OwnCardsContainer extends React.Component<Props, State> implements CardsCo
   constructor(props: Props) {
     super(props);
     this.state = {
-
       cardProps: this.getCardProps()
     };
     this.beanId = props.beanId;
@@ -62,7 +60,8 @@ class OwnCardsContainer extends React.Component<Props, State> implements CardsCo
         let props = {
           cardId: arg[i]?.cardId,
           imgSrc: arg[i]?.imgSrc,
-          opacity: arg[i]?.opacity
+          opacity: arg[i]?.opacity,
+          key:    arg[i]?.cardId
         }
 
         indents.push(

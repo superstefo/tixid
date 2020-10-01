@@ -36,4 +36,3 @@ class Deck extends React.Component<Props, State>{
 }
 
 export default withRouter(Deck);
-//  <PlayedCardsContainer beanId="all" />

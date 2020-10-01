@@ -1,6 +1,6 @@
 import React from "react";
-import {  withRouter } from "react-router-dom";
-import {  CardProps } from "./CardProps";
+import { withRouter } from "react-router-dom";
+import { CardProps } from "./CardProps";
 import CardsContainerI from "./CardsContainerI";
 import PlayedCard from "./DeckCard";
 import { RouteComponentProps } from 'react-router';
@@ -50,7 +50,7 @@ class DeckCardsContainer extends React.Component<Props, State> implements CardsC
     return CashService.deckCardProps
   }
   render() {
- 
+
     let makeCards = (arg: any) => {
 
       if (!arg) {
@@ -61,7 +61,8 @@ class DeckCardsContainer extends React.Component<Props, State> implements CardsC
         let props = {
           cardId: arg[i]?.cardId,
           imgSrc: arg[i]?.imgSrc,
-          opacity: arg[i]?.opacity
+          opacity: arg[i]?.opacity,
+          key:    arg[i]?.cardId
         }
 
         indents.push(
