@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/tixid/static/css/main.aa025973.chunk.css",
+    "main.js": "/tixid/static/js/main.a6e264c3.chunk.js",
+    "main.js.map": "/tixid/static/js/main.a6e264c3.chunk.js.map",
+    "runtime-main.js": "/tixid/static/js/runtime-main.08af0056.js",
+    "runtime-main.js.map": "/tixid/static/js/runtime-main.08af0056.js.map",
+    "static/css/2.e39007f6.chunk.css": "/tixid/static/css/2.e39007f6.chunk.css",
+    "static/js/2.71f47456.chunk.js": "/tixid/static/js/2.71f47456.chunk.js",
+    "static/js/2.71f47456.chunk.js.map": "/tixid/static/js/2.71f47456.chunk.js.map",
+    "index.html": "/tixid/index.html",
+    "precache-manifest.91f32f6f82b868f3598f517c9f1e0d08.js": "/tixid/precache-manifest.91f32f6f82b868f3598f517c9f1e0d08.js",
+    "service-worker.js": "/tixid/service-worker.js",
+    "static/css/2.e39007f6.chunk.css.map": "/tixid/static/css/2.e39007f6.chunk.css.map",
+    "static/css/main.aa025973.chunk.css.map": "/tixid/static/css/main.aa025973.chunk.css.map",
+    "static/js/2.71f47456.chunk.js.LICENSE.txt": "/tixid/static/js/2.71f47456.chunk.js.LICENSE.txt",
+    "static/media/genie.gif": "/tixid/static/media/genie.65a3553a.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.08af0056.js",
+    "static/css/2.e39007f6.chunk.css",
+    "static/js/2.71f47456.chunk.js",
+    "static/css/main.aa025973.chunk.css",
+    "static/js/main.a6e264c3.chunk.js"
+  ]
+}
