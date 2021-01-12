@@ -1,11 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import WebSocketService from '../../services/WebSocketService';
-import GameService from '../../services/GameService';
-//import CashService from '../services/CashService';
-import Const from '../../services/Constants';
 import AjaxService from '../../services/AjaxService';
+import Const from '../../services/Constants';
 
 interface ILoginState {
   nameValue: string
@@ -18,9 +14,6 @@ class Login extends React.Component<{}, ILoginState> {
     this.state = {
       nameValue: ''
     };
-  }
-
-  componentDidMount() {
   }
 
   onKeyPress = (e: any) => {
@@ -39,11 +32,10 @@ class Login extends React.Component<{}, ILoginState> {
   dologin = () => {
     console.log(this.state.nameValue);
 
-    let promise = AjaxService.doPost('http://localhost:8585/login', {},
-      {
-        pswd: "a",
-        usrnm: this.state?.nameValue
-      })
+    let promise = AjaxService.doPost(Const.URL.LOGIN, null, {
+      pswd: "a", //TODO: remove
+      usrnm: this.state?.nameValue
+    })
     this.setState({ nameValue: '' });
     promise.then((data) => {
       WebSocketService.connect()
@@ -55,7 +47,6 @@ class Login extends React.Component<{}, ILoginState> {
       placeholder: 'name...',
       value: this.state?.nameValue,
       onChange: this.onChange,
-      //    className: this.getStyles(),
       onKeyPress: this.onKeyPress
     }
     return (

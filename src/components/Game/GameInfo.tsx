@@ -14,7 +14,7 @@ class GameInfo extends React.Component<Props, IState> {
   data: any;
   constructor(props: any) {
     super(props);
-    this.data = [props.location.state.original] || [];
+    this.data = [props?.location?.state?.original] || [];
   }
 
   joinGame = () => {
@@ -41,12 +41,16 @@ class GameInfo extends React.Component<Props, IState> {
       }
     ]
 
+    const tableStyle = {
+    };
+
     return (
       <div>
         <h5>Join game: {this.data[0].name}</h5>
         <div className="text-center">
           <ReactTable className="-striped -highlight"
             data={this.data}
+            style={tableStyle}
             columns={present}
             sortable={false}
             defaultPageSize={1}
@@ -61,5 +65,4 @@ class GameInfo extends React.Component<Props, IState> {
 }
 
 export default withRouter(GameInfo);
-
 

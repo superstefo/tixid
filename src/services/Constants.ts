@@ -1,36 +1,16 @@
-let ipAdress = 'http://localhost:8585/';
-
+//const base = 'https://tixid-app.herokuapp.com/';
+const base = 'http://localhost:5000/';
 const Const = {
-  URLS: {
-    BASE_URL: ipAdress,
-    AUTH: {
-      PHONE: ipAdress + 'requestCode',
-      GET_TOKEN: ipAdress + 'getToken/'
-    },
-    UPDATES: ipAdress + 'updates',
-    PROFILE: ipAdress + 'profile',
-    USER: ipAdress + 'user/',
-    MATCH: ipAdress +  'user/matches/',
-    SEND_MESSAGE: ipAdress + 'postMessage',
-    SEND_LOCATION: ipAdress + 'location',
-    NEW_FRIENDS: ipAdress + 'new-friends',
-    SEND_SEEN: ipAdress + 'seen/',
-    FAST_MATCH: ipAdress + 'fast-match',
-    LIKE: ipAdress + 'like/',
-    PASS: ipAdress + 'pass/',
-
-
-    //// storage api:
-    STORAGE: ipAdress + 'storage/',
-    STORAGE_TOKEN: ipAdress + 'storage/token/',
-    STORAGE_BOOKMARKS: ipAdress + 'storage/bookmarks/',
-    STORAGE_SETTINGS: ipAdress + 'storage/settings/'
+  URL: {
+    BASE: base,
+    WS: base + 'ws',
+    GAME: base + 'game/',
+    GAMES: base + 'games/',
+    LOGIN: base + 'login',
+    LOGOUT: base + 'logout'
   },
-  UPDATE_POLL_INTERVAL: 20000,
-  LOCAL_CASH_VAR_NAME: '__TnDr__',
-  AUTH_HEADER_NAME: 'X-Auth-Token',
-  PHONE_HEADER_NAME: 'phone-number',
-  VERSION: '1.15'
+
+  VERSION: '1.0'
 }
 
 export default Const;

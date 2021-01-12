@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import ReactTable from 'react-table';
-import GameCreate from '../Game/GameCreate';
+import Login from '../MainMenu/Login';
 import GameSearch from '../Game/GameSearch';
 import GameCurrent from '../Game/GameCurrent';
 import GameHelp from '../Game/GameHelp';
@@ -11,20 +11,20 @@ import "react-table/react-table.css";
 type Props = { beanId: string } & RouteComponentProps<{}>;
 
 interface IState {
-  view: any
+  view: any,
 }
 
-class Game extends React.Component<Props, IState> {
+class MainMenu extends React.Component<Props, IState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      view: ''
+      view: '',
     };
   }
 
   show = (view: string) => {
     if (view === '1') {
-      this.setState({ view: <GameCreate beanId='GameCreate11' /> })
+      this.setState({ view: <Login /> })
     } else if (view === '2') {
       this.setState({ view: <GameSearch beanId='GameSearch11' /> })
     } else if (view === '3') {
@@ -43,7 +43,7 @@ class Game extends React.Component<Props, IState> {
 
   render() {
     let person = [{
-      "create": <button type="button" onClick={() => { this.show("1") }} className="btn btn-primary"> New Game </button>,
+      "create": <button type="button" onClick={() => { this.show("1") }} className="btn btn-primary"> Login </button>,
       "search": <button type="button" onClick={() => { this.show("2") }} className="btn btn-primary"> Search Games </button>,
       "info": <button type="button" onClick={() => { this.show("3") }} className="btn btn-primary"> This Game </button>,
       "help": <button type="button" onClick={() => { this.show("4") }} className="btn btn-primary"> Help </button>,
@@ -98,6 +98,6 @@ class Game extends React.Component<Props, IState> {
 }
 
 
-export default withRouter(Game);
+export default withRouter(MainMenu);
 
 

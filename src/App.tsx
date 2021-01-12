@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Deck from './components/Deck/Deck';
 import Game from './components/Game/Game';
 import GameInfo from './components/Game/GameInfo';
-import Login from './components/Login/Login';
+import MainMenu from './components/MainMenu/MainMenu';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
@@ -16,7 +16,7 @@ const App: React.FC = () => {
       <Router basename={'/'}>
         <Header beanId="header1" />
         <Switch>
-          < Route path="/login" component={Login} />
+          < Route path="/main" component={MainMenu} />
           < Route path="/game" component={Game} />
           < Route path="/game-info" component={GameInfo} />
           < Route path="/deck" component={Deck} />

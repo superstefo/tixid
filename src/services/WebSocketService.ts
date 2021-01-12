@@ -1,6 +1,7 @@
 import React from 'react';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
+import Const from '../services/Constants';
 
 class WebSocketService extends React.Component {
     subscribtions: Map<string, any>
@@ -29,10 +30,7 @@ class WebSocketService extends React.Component {
     }
 
     connect = () => {
-        //TODO url..
-        var url = 'http://localhost:8585/ws';
-
-        let sock = new SockJS(url);
+        let sock = new SockJS(Const.URL.WS);
 
         let connectCallback = () => {
             this.isConnected = true;
@@ -51,15 +49,26 @@ class WebSocketService extends React.Component {
         if (this.stompClient === null || !topic || !callback) {
             return;
         }
+
         if (this.subscribtions.has(topic)) {
             return;
         }
+
         if (!this.isConnected) {
             this.subscribeCalls.set(topic, callback);
             return;
         }
+
         let subscribtion = this.stompClient.subscribe(topic, callback);
         this.subscribtions.set(topic, subscribtion);
+    }
+
+    unsubscribe = () => {
+        this.subscribtions.forEach((k, v: any) => {
+            console.log(k);
+            console.log(v);
+            k.unsubscribe();
+        })
     }
 
     disconnect = () => {

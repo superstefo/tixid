@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import OwnCardsContainer from "./parts/OwnCardsContainer";
 import PlayedCardsContainer from "./parts/DeckCardsContainer";
+import InfoPanel from "./parts/InfoPanel/InfoPanel";
 import { RouteComponentProps } from 'react-router';
 
 type Props = { beanId: string, history: any } & RouteComponentProps<{}>;
@@ -28,6 +29,7 @@ class Deck extends React.Component<Props, State>{
 
     return (
       <div id="dd2" className="float-bottom text-center">
+        <InfoPanel beanId="InfoPanel1" />
         <PlayedCardsContainer beanId="deckCardsContainer1" />
         <OwnCardsContainer beanId="ownCardsContainer1" />
       </div>

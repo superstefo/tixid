@@ -1,6 +1,7 @@
 import React from 'react';
 import AjaxService from './AjaxService';
 import CashService from '../services/CashService';
+import Const from '../services/Constants';
 
 class GameService extends React.Component {
   gameSearchResults: Array<any>;
@@ -10,20 +11,17 @@ class GameService extends React.Component {
   };
 
   createGame = (name: string, hidden: boolean, lang: String) => {
-    let promise = AjaxService.doPost('http://localhost:8585/game', {
+    return AjaxService.doPost(Const.URL.GAME, {
       'name': name,
       'hidden': hidden,
       'lang': lang
     }, {});
-    promise.then((data) => {
 
-    }).catch((e) => {
-      console.error(e);
-    })
   };
 
   searchGame = (name: string, hidden: boolean, lang: String) => {
-    return AjaxService.doGet('http://localhost:8585/games?name=' + name + '&hidden=' + hidden + '&lang=' + lang, {});
+    //TODO: refactor parameters:
+    return AjaxService.doGet(Const.URL.GAMES + '?name=' + name + '&hidden=' + hidden + '&lang=' + lang, {});
   };
 
   joinGame = (id: string) => {

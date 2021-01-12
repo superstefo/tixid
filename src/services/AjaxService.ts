@@ -1,14 +1,12 @@
 import React from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
-import Const from './Constants';
-import CashService from './CashService';
 
 class AjaxService extends React.Component {
   constructor(props: {}) {
     super(props);
     this.context = {};
   };
-  execute = (method: AxiosRequestConfig["method"], url: string, data: object, headers: object) => {
+  execute = (method: AxiosRequestConfig["method"], url: string, data: object | null, headers: object) => {
     let arg: AxiosRequestConfig;
     arg = {};
     arg.method = method;
@@ -20,7 +18,7 @@ class AjaxService extends React.Component {
     return axios(arg);
   };
 
-  doPost = (url: string, data: object, headers: object) => {
+  doPost = (url: string, data: object | null, headers: object) => {
     return this.execute('post', url, data, this.getHeaders(headers));
   };
 
@@ -37,19 +35,6 @@ class AjaxService extends React.Component {
   };
 
   getHeaders = (headers: object) => {
-    //   let authHeaderName = Const.AUTH_HEADER_NAME;
-    //   let phoneHeaderName = Const.PHONE_HEADER_NAME;
-    //   if (!headers) {
-    //     headers = {};
-    //   }
-
-    //   if (CashService[phoneHeaderName]) {
-    //     headers[phoneHeaderName] = CashService[phoneHeaderName];
-    //   }
-
-    //   if (CashService[authHeaderName]) {
-    //     headers[authHeaderName] = CashService[authHeaderName];
-    //   }
     return headers;
   };
 }

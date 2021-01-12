@@ -1,14 +1,14 @@
 import React from "react";
 import AjaxService from "../../../services/AjaxService";
-import { log } from "util";
-import {CardStateI, CardProps } from "./CardProps";
+import { CardStateI, CardProps } from "./CardProps";
 import CashService from '../../../services/CashService';
+import Const from '../../../services/Constants';
 
 class DeckCard extends React.Component<CardProps, CardStateI>{
 
   constructor(props: CardProps) {
     super(props);
-     this.state = {
+    this.state = {
       opacity: props.opacity,
       cardId: props.cardId,
       imgSrc: props.imgSrc
@@ -25,7 +25,7 @@ class DeckCard extends React.Component<CardProps, CardStateI>{
   doVote = () => {
     let cardId = this.state.cardId;
     //TODO: constants
-    let promise = AjaxService.doPost("http://localhost:8585/" + CashService.gameId + "/voting/card/" + cardId, {}, {});
+    let promise = AjaxService.doPost(Const.URL.BASE + CashService.gameId + "/voting/card/" + cardId, {}, {});
     promise.catch((error) => {
       console.error(error);
     });

@@ -1,9 +1,8 @@
 import React from "react";
 import AjaxService from "../../../services/AjaxService";
 import CashService from '../../../services/CashService';
-import { log } from "util";
-import {CardStateI, CardProps } from "./CardProps";
-
+import { CardStateI, CardProps } from "./CardProps";
+import Const from '../../../services/Constants';
 
 class OwnCard extends React.Component<CardProps, CardStateI> {
   isEnabled: boolean;
@@ -52,10 +51,10 @@ class OwnCard extends React.Component<CardProps, CardStateI> {
       return;
     }
     let cardId = this.state.cardId;
-
-    let promise = AjaxService.doPost("http://localhost:8585/" + CashService.gameId + "/deck/card/" + cardId, {}, {});
+    //TODO: const
+    let promise = AjaxService.doPost(Const.URL.BASE + CashService.gameId + "/deck/card/" + cardId, {}, {});
     this.isEnabled = false;
-
+    //TODO: refactor isEnabled
     promise.catch((error) => {
       console.error(error);
       this.isEnabled = true;
